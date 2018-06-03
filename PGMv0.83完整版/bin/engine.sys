@@ -1,0 +1,55 @@
+
+local code=PackCreate(PGM_RES_FOLDER .. PGM_PACK_CODE)
+local image=PackCreate(PGM_RES_FOLDER .. PGM_PACK_IMAGE)
+
+function include(filename)
+	PGDoFile(code,filename)
+end
+
+function gmcode()
+	return code
+end
+
+function gmdata()
+	return image
+end
+
+include("lg_init.lua")
+
+-- ==============================================
+-- engine framework
+
+function PGLoop()
+	scene:inputProc()
+	scene:loop()
+end
+
+function press_down(key)
+	scene:key_down(key)
+end
+
+function press_up(key)
+	scene:key_up(key)
+end
+
+function analog(x,y)
+	scene:analog_left(x,y)
+end
+
+function mouse_down(id,x,y,prev_x,prev_y,tapCount)
+	scene:ftouch_began(id,x,y,prev_x,prev_y,tapCount)
+end
+
+function mouse_up(id,x,y,prev_x,prev_y,tapCount)
+	scene:ftouch_ended(id,x,y,prev_x,prev_y,tapCount)
+end
+
+function mouse_move(id,x,y,prev_x,prev_y,tapCount)
+	scene:ftouch_moved(id,x,y,prev_x,prev_y,tapCount)
+end
+
+-- 注册按键和鼠标的回调函数
+ControlInit("press_down","press_up","analog")
+TouchInit("mouse_down","mouse_up","mouse_move")
+
+PGSetState(PGM_LOOP)

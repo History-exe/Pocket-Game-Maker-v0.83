@@ -1,0 +1,16 @@
+
+--===================================================================
+*begin
+
+show_poster(1200)		-- 显示一张广告,参数是等待时间
+
+allclear()
+AllVarReset()
+pmplay("test.pmp")
+--pubdata_checkup()
+speakmode(speak_mode_sample)
+
+--===================================================================
+-- 在此分割线下面编写你的代码
+
+jump("game_title.ev")

@@ -1,0 +1,90 @@
+
+*begin
+allclear()
+
+value[1]=0
+value[2]=0
+
+bg(1,"bg01.png",1,1000)
+bgon(1) pause(1000)
+
+fg(10,"msgbox.png",0,0)
+fgxy(10,0,220)
+
+
+-- == 好感度判断 == --
+*loop
+textclear()
+fgoff(10) pause(200)
+gotoif(value[1]>=3,*sel2)
+goto(*sel1)
+
+*sel1
+drawramus("摸摸头",*motou,"抱抱",*baobao)
+
+*sel2
+drawramus("摸摸头",*motou,"抱抱",*baobao,"哗~~~",*h,"无限循环",*sloop)
+
+
+-- == 摸头 == --
+*motou
+fgon(10)
+value[1]=value[1]+1
+say("杯叔摸了摸小萝莉的头，小萝莉很开心~")
+goto(*loop)
+goto(*motou)
+
+
+-- == 抱抱 == --
+*baobao
+fgon(10)
+value[1]=value[1]+2
+value[2]=value[2]+1
+say("杯叔和小萝莉抱在了一起，第" .. value[2] .. "次抱- -|||")
+goto(*loop)
+
+
+-- == 哔 == --
+*h
+fgon(10)
+say("真的确认要和小萝莉H?")
+drawramus("道德已经无法阻止我了~",*goodend,"不要啊，我还不想坐牢- -|||~",*badend)
+
+
+-- == 悲剧结局 == --
+*badend
+say("......")
+say("...")
+say("什么也没发生,杯叔的一天过去了……")
+goto(*end)
+
+
+-- == 完美结局 == --
+*goodend
+say("杯叔和小萝莉开始【哗~~】[n][c=00ff00]以下被绿坝娘屏蔽[/c]")
+say("......")
+say("...")
+say("根据中华人民共和国刑法第69条，与未满12岁幼女发生....以强奸罪论处。")
+say("杯叔在监狱里度过了余生....[n]杯叔用他的下半生换取了幸福,好样的!")
+goto(*end)
+
+
+-- == 游戏结束 == --
+*end
+textclear()
+pub_value[1]=pub_value[1]+1
+--amp_pubsave()
+say("谢谢观赏,通关次数=" .. pub_value[1])
+drawramus("重新游戏",*begin,"退出游戏",*exit)
+
+*exit
+jump("am_start.ev")
+
+
+-- 无限循环
+*sloop
+fgon(10)
+say("杯叔摸了摸小萝莉的头，小萝莉很开心~")
+value[2]=value[2]+1
+say("杯叔和小萝莉抱在了一起，第" .. value[2] .. "次抱- -|||")
+goto(*sloop)

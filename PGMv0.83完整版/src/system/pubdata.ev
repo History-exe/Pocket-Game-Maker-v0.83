@@ -1,0 +1,44 @@
+
+-- if public data is exist then load
+gotoif(FileIsExist(GetFullPubGameDataFolderPath() .. "/DATA.SFO"),*loaddata)
+
+-- else create public data
+goto(*savedata)
+
+-- =========================================================================
+
+*loaddata
+gotoif(PGMIOS,*iosloaddata)
+texfg(1,"[c=ffffff]正在读取公用数据 ...[/c]",1,500,360,80)
+texfgxy(1,0,PGM_ORI_SCREEN_HEIGHT*0.85)
+texfgon(1) pause(1000)
+amp_pubload()
+texfg(2,"[c=ffffff]读取成功！请按圈键继续（L） ...[/c]",1,200,360,80)
+texfgxy(2,0,PGM_ORI_SCREEN_HEIGHT*0.9)
+texfgon(2) pause(500)
+waitforkey()
+texfgnull(1,2)
+goto(*exit)
+
+*savedata
+gotoif(PGMIOS,*iossavedata)
+texfg(1,"[c=ffffff]系统第一次运行，正在创建公用数据 ...[/c]",1,500,360,80)
+texfgxy(1,0,PGM_ORI_SCREEN_HEIGHT*0.85)
+texfgon(1) pause(1000)
+amp_pubsave()
+texfg(2,"[c=ffffff]创建成功！请按圈键继续（L） ...[/c]",1,200,360,80)
+texfgxy(2,0,PGM_ORI_SCREEN_HEIGHT*0.9)
+texfgon(2) pause(500)
+waitforkey()
+texfgnull(1,2)
+goto(*exit)
+
+*exit
+exit()
+
+*iosloaddata
+amp_pubload()
+goto(*exit)
+*iossavedata
+amp_pubsave()
+goto(*exit)

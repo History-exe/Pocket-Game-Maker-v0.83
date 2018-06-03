@@ -1,0 +1,1 @@
+copy *.dll c:\WINDOWS\System32

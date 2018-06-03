@@ -1,0 +1,41 @@
+
+bg(1,"title.png",1,1000)
+bgon(1) pause(1000)
+
+*loop
+gotoif(pub_value[1] >= 2,*2zhoumu)
+goto(*1zhoumu)
+
+
+-- == 1周目标题 == --
+*1zhoumu
+SET_TITLE_BUTTON("title_start.png","title_quit.png")
+drawtitle(*newgame,*exit)
+
+
+
+-- == 2周目标题 == --
+*2zhoumu
+SET_TITLE_BUTTON("title_start.png","title_load.png","title_quit.png")
+drawtitle(*newgame,*load,*exit)
+
+
+
+-- == 新游戏 == --
+*newgame
+bgeff(1,2,500)
+pause(500)
+--drawmenu()
+jump("story.ev")
+
+
+
+-- == 读取存档 == --
+*load
+drawload()
+goto(*loop)
+
+
+-- == 退出游戏 == --
+*exit
+QUIT()
